@@ -1,6 +1,14 @@
+# Required for python main.py; install once with pip install -r requirements.txt.
+# Verified together with Python 3.9.6 in the supplied local environment.
+# Array calculations and reproducible random simulation
 numpy==2.0.2
+# Data loading, dates and output tables
 pandas==2.3.3
+# Copula distributions, ranks and Kendall correlation
 scipy==1.13.1
+# Display and save the three figures
 matplotlib==3.9.4
+# Independent check of the Haar calculation
 PyWavelets==1.6.0
-# Optional, only to download a fresh dataset: pip install yfinance==1.2.0
+# Optional download only (not needed for the included data):
+# python -m pip install yfinance==1.2.0

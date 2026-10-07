@@ -1,6 +1,10 @@
 # SAIFA — Risk across tails and timescales
 
-A single-file Python pipeline that reads real ETF data, fits risk models, evaluates forecasts, and shows metrics and plots. No notebook, PDF generator, ZIP builder or automatic package installer is involved.
+A single-file Python market-risk framework combining Haar wavelets and copulas for an equally weighted SPY, QQQ, GLD and TLT portfolio.
+
+**Data → Haar wavelets → copulas → risk estimates → evaluation → plots.**
+
+The question is whether tail dependence changes across 1, 4 and 16 trading days and how dependence assumptions affect measured portfolio risk. The included real data supports offline reproduction after dependency installation. The analysis does not generate HTML or PDF files.
 
 ## Run
 
@@ -30,7 +34,7 @@ python main.py --no-show
 
 ### First setup on another computer
 
-Use Python 3.11 (the pinned packages support Python 3.9–3.12). Create and activate an environment, then install the dependencies once:
+Python 3.11 is recommended for a new environment; the existing local run was verified on Python 3.9.6. Use Python 3.9–3.12 with these pins. Create and activate an environment, then install the dependencies once:
 
 ```bash
 python -m venv .venv
@@ -45,7 +49,9 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-The frozen data is included, so normal analysis does not require Internet access. No packages are installed during a normal run. A package-server timeout is a network failure, not evidence of an incompatible package version.
+The frozen data is included, so normal analysis does not require Internet access. No packages are installed during a normal run. In VS Code, select the interpreter inside the environment you just created.
+
+`requirements.txt` pins the five analysis dependencies: NumPy (arrays and simulation), pandas (data and tables), SciPy (copula calculations), Matplotlib (figures), and PyWavelets (Haar verification). The optional downloader uses `yfinance==1.2.0`, installed separately only when needed. No notebook or document-generation packages are required.
 
 ## Files to understand
 
@@ -134,7 +140,7 @@ For a live explanation, work through one four-day return by hand, then explain r
 ## Optional fresh download
 
 Normal runs reuse `data/raw_prices.csv`. Do not overwrite it if you need the original results.
-To acquire a new snapshot in a separate project copy:
+To acquire a new snapshot, copy `main.py` and `requirements.txt` into a separate folder without the original `data/` folder. After installing the analysis dependencies there, run:
 
 ```bash
 python -m pip install yfinance==1.2.0
@@ -142,6 +148,30 @@ python main.py --download
 ```
 
 The downloader refuses to overwrite an existing frozen CSV. If no data file exists, `main.py` calls it; yfinance must then be installed and Yahoo must be reachable. Source pages: [SPY](https://finance.yahoo.com/quote/SPY/history/), [QQQ](https://finance.yahoo.com/quote/QQQ/history/), [GLD](https://finance.yahoo.com/quote/GLD/history/), [TLT](https://finance.yahoo.com/quote/TLT/history/).
+
+The download command only acquires data and writes its manifest; run `python main.py` afterward for the analysis. Provider revisions can change a newly downloaded history. Use the included snapshot to reproduce the submitted results exactly; there is no synthetic fallback if a download fails.
+
+## Included data and provenance
+
+`data/raw_prices.csv` is the actual dataset used: 2,704 daily price rows from 4 January 2016 through 5 October 2026. Its columns are `Date, SPY, QQQ, GLD, TLT`. The four price columns contain Yahoo Finance adjusted closing prices in USD; dates represent trading sessions. All four series have zero missing prices in the saved dataset. Returns are calculated by the pipeline, not stored as prices.
+
+`data/data_manifest.json` records the public source links, retrieval time, requested dates, adjustment settings, row count and SHA-256 checksum. The snapshot was downloaded on 7 October 2026 at 08:46:50 UTC using `auto_adjust=False` and the returned `Adj Close` column. The request's end date, 6 October 2026, is exclusive.
+
+The pipeline verifies this checksum before analysis:
+
+```text
+e6677298665503dab326d76dfef8c37a00ae32ff5936ef00c857a9c630f44ea8
+```
+
+Keep both data files together. Do not edit the CSV or regenerate its checksum to bypass a failed check; use the original submission snapshot when reproducing its results.
+
+## Submission contents and reproduction
+
+Include `main.py`, `README.md`, `requirements.txt`, and both files in `data/`. Include `outputs/` if you want reviewers to inspect the existing tables and figures immediately; one run regenerates those analysis outputs. Add the separately prepared report PDF to the final submission folder when ready.
+
+Exclude `.venv/`, `.cache/`, `__pycache__/` and `.DS_Store` from the ZIP. These are local environment or cache files, not submission dependencies. Check that the final ZIP is at most 25 MB.
+
+After the one-time dependency installation, `python main.py` reproduces the analysis tables, model choices and three figures. For an unattended run, use `python main.py --no-show`. Fixed random seeds, the frozen input and pinned dependencies make the calculation repeatable. `outputs/run_summary.json` records the input checksum, runtime versions, periods and completed checks. The PDF is prepared separately from these outputs.
 
 ## AI disclosure
 
