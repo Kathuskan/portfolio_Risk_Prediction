@@ -1,0 +1,29 @@
+{
+  "source": "Yahoo Finance via yfinance",
+  "source_urls": [
+    "https://finance.yahoo.com/quote/SPY/history/",
+    "https://finance.yahoo.com/quote/QQQ/history/",
+    "https://finance.yahoo.com/quote/GLD/history/",
+    "https://finance.yahoo.com/quote/TLT/history/"
+  ],
+  "tickers": [
+    "SPY",
+    "QQQ",
+    "GLD",
+    "TLT"
+  ],
+  "requested_start": "2016-01-01",
+  "exclusive_end": "2026-10-06",
+  "actual_first": "2016-01-04",
+  "actual_last": "2026-10-05",
+  "observations": 2704,
+  "missing": {
+    "SPY": 0,
+    "QQQ": 0,
+    "GLD": 0,
+    "TLT": 0
+  },
+  "adjustment": "Yahoo Adj Close; auto_adjust=False; actions=False; interval=1d",
+  "downloaded_utc": "2026-10-07T08:46:50.180322+00:00",
+  "sha256": "e6677298665503dab326d76dfef8c37a00ae32ff5936ef00c857a9c630f44ea8"
+}

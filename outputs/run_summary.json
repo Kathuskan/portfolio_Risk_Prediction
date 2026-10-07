@@ -1,0 +1,43 @@
+{
+  "data_sha256": "e6677298665503dab326d76dfef8c37a00ae32ff5936ef00c857a9c630f44ea8",
+  "periods": [
+    {
+      "period": "training",
+      "n": 1510,
+      "first": "2016-01-05",
+      "last": "2021-12-31"
+    },
+    {
+      "period": "validation",
+      "n": 501,
+      "first": "2022-01-03",
+      "last": "2023-12-29"
+    },
+    {
+      "period": "refit",
+      "n": 2011,
+      "first": "2016-01-05",
+      "last": "2023-12-29"
+    },
+    {
+      "period": "test",
+      "n": 692,
+      "first": "2024-01-02",
+      "last": "2026-10-05"
+    }
+  ],
+  "selected_on_validation": {
+    "1": "Gaussian",
+    "4": "Gaussian",
+    "16": "HS"
+  },
+  "checks": "Data, chronology, Haar identity, correlation, compounding and ES assertions passed.",
+  "python": "3.9.6",
+  "packages": {
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "scipy": "1.13.1",
+    "matplotlib": "3.9.4",
+    "PyWavelets": "1.6.0"
+  }
+}
